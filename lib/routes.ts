@@ -2,6 +2,7 @@ import * as express from 'express';
 import {Request, Response} from 'express';
 
 import Challenge from './models/challenge';
+import Vehicle from './models/vehicle';
 
 export class Routes {       
     public routes(app: express.Application): void {          
@@ -20,6 +21,10 @@ export class Routes {
                     message: result[0].name
                 })
             });
-        })               
+        })
+        app.route('/vehicles')
+        .get((req: Request, res: Response) => {
+            res.send(Vehicle.allVehicles())
+        })
     }
 }
