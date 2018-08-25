@@ -31,7 +31,6 @@ export default class Stop {
               })
           })
         })
-<<<<<<< HEAD
     }
 
     static nearStops (cords, radius) {
@@ -49,7 +48,5 @@ export default class Stop {
                 resolve(stops)
             })
         })
-=======
->>>>>>> 0c9b2e2b29adffbefa0900afbb533d83a4cd0756
     }
 }
