@@ -14,7 +14,9 @@ export default class Stop {
               const request = new HttpRequest('/StopTDI')
               const DEGREES_IN_MILLIARCSECS = 3600000
               request.get((res) => {
-                  let stops = VehicleTdiArray.decode(res)['stopTdiArray'];
+                  let stops = VehicleTdiArray.decode(res)['stopTdiArray']
+
+                  stops = stops.filter(stop => stop.latitude !== 324000002 && stop.longitude !== 648000002)
 
                   stops = stops.map(stop => {
                       return {
@@ -24,9 +26,9 @@ export default class Stop {
                       }
                   })
 
-                  resolve(stops);
+                  resolve(stops)
               })
           })
-        });
+        })
     }
 }
