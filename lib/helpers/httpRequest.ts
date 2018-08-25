@@ -20,12 +20,11 @@ export default class HttpRequest{
         https.request(this.options, (r): void => {
             let data = '';
             r.on('data', (chunk: string): void => {
-                console.log('Got chunk: ' + chunk);
+                console.log('Got chunk');
                 data += chunk;
             });
             r.on('end', (): void =>{
                 console.log('Response has ended');
-                console.log(data);
                 cb(data);
             });
             r.on('error', (err): void => {
