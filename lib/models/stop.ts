@@ -12,15 +12,15 @@ export default class Stop {
               let VehicleTdiArray = root.lookupType('mhcc.app.dataprovider.model.tdiinterface.dstructs.StopTdiArray')
 
               const request = new HttpRequest('/StopTDI')
-              const MILLIARCSECONDS_IN_DEGREES = 0.00000027777777777778
+              const DEGREES_IN_MILLIARCSECS = 3600000
               request.get((res) => {
                   let stops = VehicleTdiArray.decode(res)['stopTdiArray'];
 
                   stops = stops.map(stop => {
                       return {
                           name: stop.longName,
-                          longitude: stop.longitude * MILLIARCSECONDS_IN_DEGREES,
-                          latitude: stop.latitude * MILLIARCSECONDS_IN_DEGREES
+                          longitude: stop.longitude / DEGREES_IN_MILLIARCSECS,
+                          latitude: stop.latitude / DEGREES_IN_MILLIARCSECS
                       }
                   })
 
