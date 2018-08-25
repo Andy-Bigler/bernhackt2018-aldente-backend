@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var Knex = require("knex");
-var Bookshelf = require("bookshelf");
-var Database = /** @class */ (function () {
-    function Database() {
+const Knex = require("knex");
+const Bookshelf = require("bookshelf");
+class Database {
+    constructor() {
         this._knex = null;
         this._bookshelf = null;
         if (Database._instance) {
@@ -23,17 +23,16 @@ var Database = /** @class */ (function () {
         this._bookshelf = Bookshelf(this._knex);
         Database._instance = this;
     }
-    Database.getInstance = function () {
+    static getInstance() {
         return Database._instance;
-    };
-    Database.prototype.getKnex = function () {
+    }
+    getKnex() {
         return this._knex;
-    };
-    Database.prototype.getBookshelf = function () {
+    }
+    getBookshelf() {
         return this._bookshelf;
-    };
-    Database._instance = new Database();
-    return Database;
-}());
+    }
+}
+Database._instance = new Database();
 exports.default = Database;
 //# sourceMappingURL=db.js.map
