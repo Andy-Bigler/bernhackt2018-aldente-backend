@@ -25,8 +25,10 @@ export class Routes {
         })
         app.route('/vehicles')
         .get((req: Request, res: Response) => {
-            res.status(200).send({
-                data: Vehicle.allVehicles()
+            Vehicle.allVehicles().then(function(vehicles) {
+                res.status(200).send({
+                    vehicles
+                })
             })
         })
     }
