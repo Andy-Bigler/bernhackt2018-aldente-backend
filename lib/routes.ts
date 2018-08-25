@@ -14,7 +14,7 @@ export class Routes {
         app.route('/challenges')
         .get((req: Request, res: Response) => {
             Challenge.fetchAll().then(function(challenges) {
-                let result = challenges.toJSON();
+                let result: Challenge[] = challenges.toJSON();
                 
                 res.status(200).send({
                     message: result[0].name
