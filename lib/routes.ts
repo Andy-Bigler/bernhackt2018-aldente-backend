@@ -19,7 +19,7 @@ export class Routes {
                 let result: Challenge[] = challenges.toJSON();
                 
                 res.status(200).send({
-                    message: result[0].name
+                    challenges: result
                 })
             });
         })
