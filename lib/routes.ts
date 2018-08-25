@@ -4,6 +4,7 @@ import {Request, Response} from 'express';
 import Challenge from './models/challenge';
 import Vehicle from './models/vehicle';
 import Stop from './models/stop';
+import { request } from 'https';
 
 export class Routes {       
     public routes(app: express.Application): void {          
@@ -33,11 +34,19 @@ export class Routes {
         })
         app.route('/stops')
             .get((req: Request, res: Response) => {
-                Stop.allStops().then(function(stops) {
-                    res.status(200).send({
-                        stops
+                if (req.query.lat && req.query.lon && req.query.rad) {
+                    Stop.nearStops({ lat: req.query.lat, lon: req.query.lon }, req.query.rad).then(function(stops) {
+                        res.status(200).send({
+                            stops
+                        })
                     })
-                })
+                } else {
+                    Stop.allStops().then(function(stops) {
+                        res.status(200).send({
+                            stops
+                        })
+                    })
+                }
             })
     }
 }

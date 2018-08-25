@@ -1,5 +1,6 @@
 import { load } from 'protobufjs'
 import HttpRequest from '../helpers/httpRequest'
+import Cords from '../helpers/cords'
 import { Promise } from 'bluebird';
 
 export default class Stop {
@@ -27,6 +28,23 @@ export default class Stop {
                   resolve(stops);
               })
           })
-        });
+        })
+    }
+
+    static nearStops (cords, radius) {
+        return new Promise(function(resolve, reject) {
+            Stop.allStops().then(stopsObj => {
+                let stops = []
+                Object.keys(stopsObj).forEach(key => {
+                    console.log(key)
+                    let stop = stopsObj[key]
+                    let stopCords = new Cords(stop.latitude, stop.longitude)
+                    stop.distance = stopCords.distanceTo(cords)
+                    stops.push(stop)
+                })
+                stops = stops.filter(stop => stop.distance <= radius)
+                resolve(stops)
+            })
+        })
     }
 }
