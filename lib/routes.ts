@@ -3,7 +3,7 @@ import {Request, Response} from 'express';
 
 import Challenge from './models/challenge';
 import Vehicle from './models/vehicle';
-import HttpRequest from './helpers/httpRequest';
+import Stop from './models/stop';
 
 export class Routes {       
     public routes(app: express.Application): void {          
@@ -25,7 +25,19 @@ export class Routes {
         })
         app.route('/vehicles')
         .get((req: Request, res: Response) => {
-            res.send(Vehicle.allVehicles())
+            Vehicle.allVehicles().then(function(vehicles) {
+                res.status(200).send({
+                    vehicles
+                })
+            })
         })
+        app.route('/stops')
+            .get((req: Request, res: Response) => {
+                Stop.allStops().then(function(stops) {
+                    res.status(200).send({
+                        stops
+                    })
+                })
+            })
     }
 }

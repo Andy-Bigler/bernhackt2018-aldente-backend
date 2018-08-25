@@ -24,6 +24,7 @@
     "express": "^4.16.3",
     "knex": "^0.15.2",
     "mysql": "^2.16.0",
+    "pako": "^1.0.6",
     "protobufjs": "^6.8.8",
     "typings": "^2.1.0"
   },
@@ -31,6 +32,7 @@
     "@types/bookshelf": "^0.9.9",
     "@types/node": "^10.9.2",
     "nodemon": "^1.18.3",
+    "ts-node": "^7.0.1",
     "typescript": "^3.0.1"
   }
 }

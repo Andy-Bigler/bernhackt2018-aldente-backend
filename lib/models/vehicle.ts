@@ -1,24 +1,30 @@
-var protobuf = require('protobufjs')
+import { load } from 'protobufjs'
+import HttpRequest from '../helpers/httpRequest'
 
 export default class Vehicle {
     static allVehicles () {
-        protobuf.load('proto/tdi/VehicleTdiArray.proto', (err, root) => {
-            if (err)
-                throw err
-            
-            let VehicleTdiArray = root.lookupType('mhcc.app.dataprovider.model.tdiinterface.dstructs.VehicleTdiArray')
+        return new Promise(function(resolve, reject) {
+          load('proto/tdi/VehicleTdiArray.proto', (err, root) => {
+              if (err)
+                  reject(err)
 
-            let buffer = `` // Make http request
+              let VehicleTdiArray = root.lookupType('mhcc.app.dataprovider.model.tdiinterface.dstructs.VehicleTdiArray')
 
-            let message = VehicleTdiArray.decode(buffer)
+              const request = new HttpRequest('/VehicleTDI')
+              const MILLIARCSECONDS_IN_DEGREES = 0.00000027777777777778
+              request.get((res) => {
+                  let vehicles = VehicleTdiArray.decode(res)['vehicleTdiArray'];
 
-            let object = VehicleTdiArray.toObject(message)
+                  vehicles = vehicles.map(vehicle => {
+                      return {
+                          longitude: vehicle.longitude * MILLIARCSECONDS_IN_DEGREES,
+                          latitude: vehicle.latitude * MILLIARCSECONDS_IN_DEGREES
+                      }
+                  })
 
-            return object
-        })
-    }
-    
-    static fromObject (object) {
-        let vehicle = new this()
+                  resolve(vehicles);
+              })
+          })
+        });
     }
 }
