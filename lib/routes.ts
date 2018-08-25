@@ -25,7 +25,6 @@ export class Routes {
         app.route('/vehicles')
         .get((req: Request, res: Response) => {
             if (req.query.lat && req.query.lon) {
-                console.log('near')
                 Vehicle.nearVehicles({ lat: req.query.lat, lon: req.query.lon }, req.query.rad, (req.query.rad ? undefined : 1)).then(function(vehicles) {
                     res.status(200).send({
                         vehicles
