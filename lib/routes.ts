@@ -15,11 +15,9 @@ export class Routes {
         })
         app.route('/challenges')
         .get((req: Request, res: Response) => {
-            Challenge.fetchAll().then(function(challenges) {
-                let result: Challenge[] = challenges.toJSON();
-                
+            Challenge.fetchAll().then(function(challenges) {                
                 res.status(200).send({
-                    challenges: result
+                    challenges
                 })
             });
         })
