@@ -1,4 +1,5 @@
 import * as https from 'https';
+import * as zlib from "zlib";
 
 export default class HttpRequest{
     path: string;
@@ -11,26 +12,32 @@ export default class HttpRequest{
             host: 'tdi.bernmobil.ch',
             path: '/tdinterface' + path,
             port: 12180,
-            method: 'GET',
             headers: { 'Accept': "application/x-protobuf", "Accept-Encoding": "gzip" }
         }
     }
 
-    public get(cb: (res: any) => any): void {
-        https.request(this.options, (r): void => {
-            let data = '';
-            r.on('data', (chunk: string): void => {
-                console.log('Got chunk');
-                data += chunk;
-            });
-            r.on('end', (): void =>{
-                console.log('Response has ended');
-                cb(data);
-            });
-            r.on('error', (err): void => {
-                console.log('Following error occured during request:\n');
-                console.log(err);
+    public get(callback: (res: any) => any): void {
+        // buffer to store the streamed decompression
+        let data = [];
+
+        https.get(this.options, (res): void => {
+            let gunzip = zlib.createGunzip();
+            res.pipe(gunzip);
+
+            gunzip.on('data', function(chunk) {
+                // decompression chunk ready, add it to the data
+                data.push(chunk)
+
+            }).on('end', function() {
+                // response and decompression complete, join the buffer and return
+                let buffer = Buffer.concat(data);
+                callback(buffer);
+
+            }).on('error', function(e) {
+                callback(e);
             })
-        }).end();
+        }).on('error', function(e) {
+            callback(e)
+        });
     }
 }
