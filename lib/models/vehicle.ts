@@ -1,5 +1,6 @@
 import { load } from 'protobufjs'
 import HttpRequest from '../helpers/httpRequest'
+import { Promise } from 'bluebird';
 
 export default class Vehicle {
     static allVehicles () {

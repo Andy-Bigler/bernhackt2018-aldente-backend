@@ -1,6 +1,6 @@
 import { load } from 'protobufjs'
 import HttpRequest from '../helpers/httpRequest'
-import { inflate } from 'pako'
+import { Promise } from 'bluebird';
 
 export default class Stop {
     static allStops () {
