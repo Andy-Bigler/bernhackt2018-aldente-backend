@@ -24,11 +24,20 @@ export class Routes {
         })
         app.route('/vehicles')
         .get((req: Request, res: Response) => {
-            Vehicle.allVehicles().then(function(vehicles) {
-                res.status(200).send({
-                    vehicles
+            if (req.query.lat && req.query.lon) {
+                console.log('near')
+                Vehicle.nearVehicles({ lat: req.query.lat, lon: req.query.lon }, req.query.rad, (req.query.rad ? undefined : 1)).then(function(vehicles) {
+                    res.status(200).send({
+                        vehicles
+                    })
                 })
-            })
+            } else {
+                Vehicle.allVehicles().then(function(vehicles) {
+                    res.status(200).send({
+                        vehicles
+                    })
+                })
+            }
         })
         app.route('/stops')
             .get((req: Request, res: Response) => {
