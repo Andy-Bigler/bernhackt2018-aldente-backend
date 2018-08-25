@@ -12,14 +12,14 @@ export default class Vehicle {
               let VehicleTdiArray = root.lookupType('mhcc.app.dataprovider.model.tdiinterface.dstructs.VehicleTdiArray')
 
               const request = new HttpRequest('/VehicleTDI')
-              const MILLIARCSECONDS_IN_DEGREES = 0.00000027777777777778
+              const DEGREES_IN_MILLIARCSECS = 3600000
               request.get((res) => {
                   let vehicles = VehicleTdiArray.decode(res)['vehicleTdiArray'];
 
                   vehicles = vehicles.map(vehicle => {
                       return {
-                          longitude: vehicle.longitude * MILLIARCSECONDS_IN_DEGREES,
-                          latitude: vehicle.latitude * MILLIARCSECONDS_IN_DEGREES
+                          longitude: vehicle.longitude * DEGREES_IN_MILLIARCSECS,
+                          latitude: vehicle.latitude * DEGREES_IN_MILLIARCSECS
                       }
                   })
 
