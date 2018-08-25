@@ -32,8 +32,8 @@ export class Routes {
         })
         app.route('/stops')
             .get((req: Request, res: Response) => {
-                if (req.query.lat && req.query.lon && req.query.rad) {
-                    Stop.nearStops({ lat: req.query.lat, lon: req.query.lon }, req.query.rad).then(function(stops) {
+                if (req.query.lat && req.query.lon) {
+                    Stop.nearStops({ lat: req.query.lat, lon: req.query.lon }, req.query.rad, (req.query.rad ? undefined : 1)).then(function(stops) {
                         res.status(200).send({
                             stops
                         })

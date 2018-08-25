@@ -31,25 +31,27 @@ export default class Stop {
               })
           })
         })
-<<<<<<< HEAD
     }
 
-    static nearStops (cords, radius) {
+    static nearStops (cords, radius?: number, max?: number) {
         return new Promise(function(resolve, reject) {
             Stop.allStops().then(stopsObj => {
                 let stops = []
                 Object.keys(stopsObj).forEach(key => {
-                    console.log(key)
                     let stop = stopsObj[key]
                     let stopCords = new Cords(stop.latitude, stop.longitude)
                     stop.distance = stopCords.distanceTo(cords)
                     stops.push(stop)
                 })
-                stops = stops.filter(stop => stop.distance <= radius)
+                if (radius) {
+                    stops = stops.filter(stop => {
+                        return stop.distance <= radius
+                    })
+                }
+                stops.sort((a, b) => a.distance - b.distance)
+                if (max) stops.splice(max)
                 resolve(stops)
             })
         })
-=======
->>>>>>> 0c9b2e2b29adffbefa0900afbb533d83a4cd0756
     }
 }
