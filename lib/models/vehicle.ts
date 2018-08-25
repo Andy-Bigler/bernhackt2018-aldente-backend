@@ -18,8 +18,8 @@ export default class Vehicle {
 
                   vehicles = vehicles.map(vehicle => {
                       return {
-                          longitude: vehicle.longitude * DEGREES_IN_MILLIARCSECS,
-                          latitude: vehicle.latitude * DEGREES_IN_MILLIARCSECS
+                          longitude: vehicle.longitude / DEGREES_IN_MILLIARCSECS,
+                          latitude: vehicle.latitude / DEGREES_IN_MILLIARCSECS
                       }
                   })
 
