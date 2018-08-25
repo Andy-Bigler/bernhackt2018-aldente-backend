@@ -1,5 +1,4 @@
 var protobuf = require('protobufjs')
-var HttpRequest = require('')
 
 export default class Vehicle {
     static allVehicles () {
