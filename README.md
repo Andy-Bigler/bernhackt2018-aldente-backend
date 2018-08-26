@@ -6,7 +6,7 @@
 
 ## Projektinformationen
 
-In diesem Repo findet sich nur das Backend der App. Das Frontend ist in [seiner eigenen Repository](https://github.com/Buffalom/bernhackt2018-aldente).
+In diesem Repo findet sich nur das Backend der App. Das Frontend ist in [seinem eigenen Repository](https://github.com/Buffalom/bernhackt2018-aldente).
 
 
 ## Local 
