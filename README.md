@@ -1,4 +1,4 @@
-# BERNMOBIL-Challenge Team aldente! am BärnHäckt 2018
+# BERNMOBIL-Challenge Team aldente! BärnHäckt 2018
 
 > Mir bringä Bärn Mobil ufs nächschti Level
 
