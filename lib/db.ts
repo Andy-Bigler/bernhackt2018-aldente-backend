@@ -1,5 +1,6 @@
 import * as Knex from 'knex';
 import * as Bookshelf from 'bookshelf';
+import * as KnexConfig from '../knexfile.js'
 
 export default class Database {
 
@@ -14,17 +15,7 @@ export default class Database {
             throw new Error("Error: Instantiation failed: Use Database.getInstance() instead of new.");
         }
 
-        this._knex = Knex({
-            client: 'mysql',
-            connection: {
-                host     : 'localhost',
-                user     : 'root',
-                password : 'gibbiX12345',
-                database : 'BernMobil',
-                port     :  32770,
-                charset  : 'utf8'
-            }
-        });
+        this._knex = Knex(KnexConfig.development);
 
         this._bookshelf = Bookshelf(this._knex);
 
