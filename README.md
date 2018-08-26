@@ -1,10 +1,36 @@
-# Backend
+# BERNMOBIL-Challenge Team aldente! am BärnHäckt 2018
 
-## Scripts
-`npm run build`  
-`npm run dev`  
-`npm run start`  
-`npm run prod`
+> Mir bringä Bärn Mobil ufs nächschti Level
+
+> Geolocation-basierte Gamification der BERNMOBIL-Leitdaten
+
+## Projektinformationen
+
+In diesem Repo findet sich nur das Backend der App. Das Frontend ist in [seiner eigenen Repository](https://github.com/Buffalom/bernhackt2018-aldente).
+
+
+## Local 
+
+``` bash
+# install dependencies
+npm install
+
+# serve at localhost:8080
+npm run dev
+
+# create migration
+npm run migration:make
+
+# migrate database
+npm run migrate
+
+# rollback migration
+npm run migrate:rollback
+
+# seed database
+npm run seed
+
+```
 
 ## Docker
 
