@@ -19,7 +19,6 @@ mysqladmin -u root password "${DB_ROOT_PASS}"
 echo "CREATE DATABASE ${DB_NAME};" > /tmp/sql
 echo "GRANT ALL ON ${DB_NAME}.* TO '${DB_USER}'@'127.0.0.1' IDENTIFIED BY '${DB_PASS}' WITH GRANT OPTION;" >> /tmp/sql
 echo "GRANT ALL ON ${DB_NAME}.* TO '${DB_USER}'@'localhost' IDENTIFIED BY '${DB_PASS}' WITH GRANT OPTION;" >> /tmp/sql
-echo "GRANT ALL ON ${DB_NAME}.* TO '${DB_USER}'@'%' IDENTIFIED BY '${DB_PASS}' WITH GRANT OPTION;" >> /tmp/sql
 echo "GRANT ALL ON ${DB_NAME}.* TO '${DB_USER}'@'::1' IDENTIFIED BY '${DB_PASS}' WITH GRANT OPTION;" >> /tmp/sql
 echo "DELETE FROM mysql.user WHERE User='';" >> /tmp/sql
 echo "DROP DATABASE test;" >> /tmp/sql
