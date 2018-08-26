@@ -1,5 +1,6 @@
 import { load } from 'protobufjs'
 import HttpRequest from '../helpers/httpRequest'
+import Cords from '../helpers/cords'
 import { Promise } from 'bluebird';
 
 export default class Vehicle {
@@ -27,5 +28,27 @@ export default class Vehicle {
               })
           })
         });
+    }
+
+    static nearVehicles (cords, radius?: number, max?: number) {
+        return new Promise(function(resolve, reject) {
+            Vehicle.allVehicles().then(vehiclesObj => {
+                let vehicles = []
+                Object.keys(vehiclesObj).forEach(key => {
+                    let vehicle = vehiclesObj[key]
+                    let vehicleCords = new Cords(vehicle.latitude, vehicle.longitude)
+                    vehicle.distance = vehicleCords.distanceTo(cords)
+                    vehicles.push(vehicle)
+                })
+                if (radius) {
+                    vehicles = vehicles.filter(vehicle => {
+                        return vehicle.distance <= radius
+                    })
+                }
+                vehicles.sort((a, b) => a.distance - b.distance)
+                if (max) vehicles.splice(max)
+                resolve(vehicles)
+            })
+        })
     }
 }
